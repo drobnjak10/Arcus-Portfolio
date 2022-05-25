@@ -1,0 +1,49 @@
+.counter {
+    margin-top: 180px;
+    height: 40vh;
+    background-color: #000;
+
+    .row {
+        width: 80%;
+        height: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .col {
+            color: #fff;
+            width: 25%;
+            text-align: center;
+
+            .number {
+                font-size: 50px;
+            }
+
+            .text {
+                font-size: 20px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    @media (max-width: 600px) {
+        
+        .row {
+            flex-wrap: wrap;
+            width: 100%;
+            .col {
+                width: 45%;
+
+                .number {
+                    font-size: 30px;
+                }
+
+                .text {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}

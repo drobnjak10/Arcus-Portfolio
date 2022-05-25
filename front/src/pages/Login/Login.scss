@@ -1,0 +1,100 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    background-color: #f1f1f1;
+    margin: 0;
+    display: flex;
+    align-items: center;
+
+    .row {
+        width: 80%;
+        margin: 0 auto;
+        display: flex;
+        border: 1px solid #000;
+        height: 80%;
+        border-radius: 20px;
+        overflow: hidden;
+
+        .left {
+            background-image: url('../../../public/images/home.jpg');
+            background-position: center;
+            background-size: cover;
+            width: 70%;
+            height: 100%;
+        }
+
+        .right {
+            display: flex;
+            width: 30%;
+
+            .form-wrapp {
+                width: 90%;
+                margin-left: auto;
+                margin-top: 40px;
+
+                .link {
+                    font-weight: bold;
+                    text-decoration: none;
+                    font-size: 28px;
+                    margin-bottom: 20px;
+                    color: #a57d02;
+                }
+
+                h4 {
+                    margin-bottom: 20px;
+                    font-size: 26px;
+                    color: #a57d02;
+                }
+
+                .form-group {
+                    margin: 20px 0px;
+
+                    label {
+                        font-size: 20px;
+                        color: #a57d02;
+                    }
+
+                    input {
+                        width: 60%;
+                        padding: 10px;
+                        color: #a57d02;
+                        outline: 1px solid #a57d02;
+
+                        &:focus, &:focus {
+                            border: 2px solid #a57d02;
+                        }
+                    }
+
+                }
+                .login-btn {
+                    padding: 10px;
+                    width: 60%;
+                    text-align: left;
+                    color: #a57d02;
+                    outline: none;
+                    border: 1px solid #a57d02;
+                    font-size: 18px;
+                    background-color: #fff;
+                    transition: .5s ease all;
+                    margin: 20px 0;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #a57d02;
+                        color: #fff;
+                        
+                    }
+                }
+
+                .go-back {
+                    width: 90%;
+                    margin-top: 30px;
+                    a {
+                        color: #a57d02;
+                    }
+                }
+            }
+         
+        }
+    }
+}

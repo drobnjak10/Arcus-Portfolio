@@ -1,0 +1,228 @@
+$gold-primary: #a57d02;
+
+
+.contact-project {
+    min-height: 70vh;
+    height: auto;
+    width: 100%;
+    display: flex;
+    margin-top: 180px;
+    background-image: url('../../../public/images/sarska.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-bottom: 0;
+    margin-left: auto;
+
+    .overlay {
+        position: absolute;
+        background-color: rgba($color: #fff, $alpha: 0.7);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        .col {
+            width: 90%;
+            height: 100%;
+            margin: 0 auto;
+            margin-top: 30px;
+            display: flex;
+            padding: 10px 0;
+
+            .left {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+
+                .title {
+                    font-size: 42px;
+                    color: #000;
+                    text-transform: uppercase;
+                    font-weight: normal;
+                    letter-spacing: 2px;
+                }
+
+                .tel,
+                .address,
+                .location {
+                    font-size: 18px;
+                    margin-top: 30px;
+                    color: #000;
+                    text-transform: uppercase;
+                    font-weight: normal;
+                    letter-spacing: 2px;
+
+                    .br {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .right {
+                width: 50%;
+                display: flex;
+
+                .img {
+                    margin-left: auto;
+
+                    img {
+                        width: 300px;
+                        height: 300px;
+                        object-fit: contain;
+                        object-position: top;
+                    }
+                }
+                
+
+            }
+
+
+        }
+
+        .footer {
+            display: flex;
+            width: 90%;
+            margin: 0 auto;
+            padding-bottom: 10px;
+
+            .copyright {
+                a {
+                    margin-left: 5px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    color: #000;
+
+                }
+            }
+
+            .policy {
+                margin-left: auto;
+                display: flex;
+            }
+        }
+    }
+
+    @media(max-width: 1024px) {
+        width: 100%;
+    }
+   
+
+    @media (max-width:500px) {
+        width: 100%;
+        margin: 0;
+        height: auto;
+        display: flex;
+        
+        .overlay {
+            height: 100%;
+            .col {
+                flex-flow: column;
+                width: 100%;
+    
+                .left {
+                    flex-direction: column;
+                    width: 80%;
+                    margin: 0 auto;
+                    margin-bottom: 50px;
+                }
+    
+                .right {
+                    margin: 0 auto;
+                    width: 80%;
+    
+    
+                   .img {
+                       margin-left: 0;
+                       img {
+                            width: 150px;
+                            height: 100px;
+                       }
+                   }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 379px ) {
+        width: 100%;
+        margin: 0;
+        height: auto;
+        display: flex;
+        
+        .overlay {
+            height: 100%;
+            .col {
+                flex-flow: column;
+                width: 100%;
+    
+                .left {
+                    flex-direction: column;
+                    width: 80%;
+                    margin: 0 auto;
+                    margin-bottom: 50px;
+
+                    .title {
+                        font-size: 20px;
+                    }
+
+                    .tel,
+                    .address,
+                    .location {
+                        font-size: 16px;
+                        margin-top: 30px;
+                        color: #000;
+                        text-transform: uppercase;
+                        font-weight: normal;
+                        letter-spacing: 2px;
+    
+                        .br {
+                            font-size: 15px;
+                        }
+                    }
+                    
+                }
+    
+                .right {
+                    margin: 0 auto;
+                    width: 80%;
+                    display: none;
+    
+                    img {
+                        width: 150px;
+                        height: 100px;
+                        border: 1px solid red;
+                    }
+                }
+            }
+
+            .footer {
+                width: 90%;
+                margin: 0 auto;
+                padding-bottom: 10px;
+                font-size: 12px;
+                flex-direction: column;
+    
+                .copyright {
+                    width: 100%;
+                    text-align: center;
+                    a {
+                        margin-left: 5px;
+                        text-decoration: none;
+                        font-weight: bold;
+                        color: #000;
+    
+                    }
+                }
+    
+                .policy {
+                    width: 100%;
+                    margin-left: auto;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        
+    }
+
+}

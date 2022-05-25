@@ -1,0 +1,47 @@
+.image-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-image: url('../../../public/images/sarska.jpg');
+    background-size: cover;
+    background-position: top;
+    position: relative;
+    margin-top: 180px;
+
+    .overlay {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 90%;
+        height: 90%;
+        background-color: rgba(0,0,0,0.2);
+    }
+
+    .text {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 20vh;
+        font-size: 36px;
+        text-transform: uppercase;
+        color: #fff;
+        position: absolute;
+        left: -5%;
+
+        span {
+            display: block;
+            margin: 0;
+            padding: 0;
+
+            &.title {
+                font-size: 100px;
+                line-height: 100px;
+            }
+
+            &.desc {
+                color: #a57d02;
+            }
+        }
+        
+        
+    }
+}

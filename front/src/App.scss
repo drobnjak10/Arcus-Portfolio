@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500&display=swap');
+
+$gold-primary: #a57d02;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Khand', sans-serif;
+    scroll-behavior: smooth;
+    max-width: 100%;
+}
+
+
+.section {
+    height: 100vh;
+    width: 80%;
+    margin: 100px 0;
+    margin-left: auto;
+    z-index: 1;
+    overflow-x: hidden;
+
+    @media(max-width: 1024px) {
+        width: 100%;
+    }
+}
+
+.container-admin {
+    width: 100%;
+    display: flex;
+}
+

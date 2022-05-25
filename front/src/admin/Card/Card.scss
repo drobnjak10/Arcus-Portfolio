@@ -1,0 +1,21 @@
+.card-section {
+    border: 1px solid #666;
+    border-radius: 20px;
+    height: 200px;
+    width: 30%;
+    padding: 20px;
+    transition: .5s ease all;
+
+    a {
+        text-decoration: none;
+        color: unset;
+    }
+
+    .icon {
+        margin-bottom: 20px;
+    }
+
+    &:hover {
+        background-color: #f1f1f1;
+    }
+}
