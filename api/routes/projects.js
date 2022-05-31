@@ -37,16 +37,20 @@ router.get('/:id', (req, res) => {
     })
 });
 
-router.post('/add', upload.single('image'), async (req, res) => {
+router.post('/add', upload.array('files', 3), async (req, res) => {
     let sql = 'INSERT INTO projects SET ?'
 
-    const project = {}
+    console.log('req', req.files, req.body)
 
-    const params = [{ ...req.body, image_path: req.file.filename }]
+    const fileNames = [];
 
-    console.log(params)
+    for(let file of req.files) {
+        fileNames.push(file.filename);
+    }
 
-    await db.query(sql, params, (err, results) => {
+    const params = [{ ...req.body, image_path: fileNames.join('#') }]
+
+    db.query(sql, params, (err, results) => {
         if (err) {
             res.json({ error: 'Insert valid data!' })
             return;

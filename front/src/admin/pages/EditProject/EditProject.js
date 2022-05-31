@@ -41,6 +41,8 @@ const EditProject = () => {
 
         console.log(response)
     }
+
+
     
     return (
         <>
@@ -48,7 +50,7 @@ const EditProject = () => {
             <div className="container">
                 <Sidebar />
                 <div className="newProduct">
-                    <h1 className="addProductTitle">New Project</h1>
+                    <h1 className="addProductTitle">Edit Project</h1>
                     <div className="addProductForm">
                         <div className="addProductItem">
                             <label>Image</label>
@@ -77,17 +79,19 @@ const EditProject = () => {
                             />
                         </div>
                         <div className="addProductItem">
-                            <label>Description</label>
-                            <RichTextExample />
+                            <label>Short Description</label>
+                            <input
+                                name="short_description"
+                                type="text"
+                                placeholder="short description..."
+                                onChange={e => setShortDescription(e.target.value)}
+                            />
                         </div>
                         <div className="addProductItem">
                             <label>Description</label>
-                            <input
-                                name="description"
-                                type="text"
-                                placeholder="description..."
-                                onChange={e => setDescription(e.target.value)}
-                            />
+                            <textarea name="description" id="" cols="30" rows="10" onChange={e => setDescription(e.target.value)}>
+
+                            </textarea>
                         </div>
                       
                         <button className="addProductButton" onClick={handleClick}>

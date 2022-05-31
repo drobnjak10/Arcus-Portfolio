@@ -21,6 +21,9 @@ const Projects = () => {
   const firstRow = projects.slice(0, 3)
   const secondRow = projects.slice(3, 7)
 
+  
+  
+  
   return (
     <div className='projects' id='projects'>
       <div className="col">
@@ -30,10 +33,10 @@ const Projects = () => {
         <div className="row-one">
           {
             firstRow?.length && firstRow.map((project, index) => {
-
+              const images = project.image_path.split('#');
               return <div className={`img item-${index + 1}`} key={project.id}>
                 <Link to={`/project/${project.id}`} style={{ textDecoration: 'none', color: '#000' }}>
-                  <img src={`/projects/${project.image_path}`} alt="" />
+                  <img src={`/projects/${images[images.length - 1]}`} alt="" />
                   <div className="img-text">
                     <span className='category'>{project.category}</span>
                     <span className="text"> {project.title} </span>
@@ -48,10 +51,11 @@ const Projects = () => {
         <div className="row-two">
           {
             secondRow?.length && secondRow.map((project, index) => {
+              const images = project.image_path.split('#');
 
               return <div className={`img item-${index + 1}`} key={project.id}>
                 <Link to={`/project/${project.id}`} style={{ textDecoration: 'none', color: '#000' }}>
-                  <img src={`/projects/${project.image_path}`} alt="" />
+                  <img src={`/projects/${images[images.length - 1]}`} alt="" />
                   <div className="img-text">
                     <span className='category'>{project.category}</span>
                     <span className="text"> {project.title} </span>

@@ -5,7 +5,7 @@ import Topnav from '../../Topnav/Topnav'
 import './AddProject.scss'
 
 const AddProject = () => {
-    const [file, setFile] = useState();
+    const [file, setFile] = useState([]);
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [shortDescription, setShortDescription] = useState('');
@@ -34,13 +34,13 @@ const AddProject = () => {
         formData.append('category', category)
         formData.append('short_description', shortDescription)
         formData.append('description', description)
-        formData.append('image', file)
+        for(let image of file) {
+            formData.append('files', image)
+        }
 
         const response = await addProject(formData)
-
-        console.log(response)
     }
-    
+
     return (
         <>
             <Topnav />
@@ -54,7 +54,8 @@ const AddProject = () => {
                             <input
                                 type="file"
                                 id="file"
-                                onChange={(e) => setFile(e.target.files[0])}
+                                multiple
+                                onChange={(e) => setFile(e.target.files)}
                             />
                         </div>
                         <div className="addProductItem">
@@ -76,7 +77,7 @@ const AddProject = () => {
                             />
                         </div>
                         <div className="addProductItem">
-                            <label>Description</label>
+                            <label>Short Description</label>
                             <input
                                 name="short_description"
                                 type="text"
@@ -86,12 +87,9 @@ const AddProject = () => {
                         </div>
                         <div className="addProductItem">
                             <label>Description</label>
-                            <input
-                                name="description"
-                                type="text"
-                                placeholder="description..."
-                                onChange={e => setDescription(e.target.value)}
-                            />
+                            <textarea name="description" id="" cols="30" rows="10" onChange={e => setDescription(e.target.value)}>
+
+                            </textarea>
                         </div>
                       
                         <button className="addProductButton" onClick={handleClick}>

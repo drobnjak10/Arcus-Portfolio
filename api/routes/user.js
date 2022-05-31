@@ -1,61 +1,87 @@
-const express = require('express')
+const express = require("express");
 
-const db = require('../database.js')
-const bcrypt = require('bcryptjs')
-const { getJwtToken, verifyTokenAndAuthorization, verifyToken } = require('../helpers/helpers.js')
+const db = require("../database.js");
+const bcrypt = require("bcryptjs");
+const {
+  getJwtToken,
+  verifyTokenAndAuthorization,
+  verifyToken,
+} = require("../helpers/helpers.js");
 
-const router = new express.Router()
+const router = new express.Router();
 
-router.post('/register', async (req, res) => {
-    const { email, password } = req.body;
+router.post("/register", async (req, res) => {
+  const { email, password } = req.body;
 
-    const hashedPassword = bcrypt.hashSync(password, 10)
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
-    db.query('INSERT INTO user SET ?', {email, password: hashedPassword}, (err, results) => {
-        if(err) {
-            res.json({ error: err.message })
-            return
-        }
+  db.query(
+    "INSERT INTO user SET ?",
+    { email, password: hashedPassword },
+    (err, results) => {
+      if (err) {
+        res.json({ error: err.message });
+        return;
+      }
 
-        res.json({ message: 'Registered.', user: results })
-    })
+      res.json({ message: "Registered.", user: results });
+    }
+  );
+});
 
-})
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
 
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+  if (!email || !password) {
+    res.json({ error: "Wrong credentials!" });
+    return;
+  }
 
-    db.query('SELECT * FROM user WHERE email = ?', email, (err, results) => {
-        if(err) {
-            res.json({error: err.message})
-            return
-        }
+  db.query("SELECT * FROM user WHERE email = ?", email, (err, results) => {
+    if (err) {
+      res.json({ error: "Something goes wrong." });
+      return;
+    }
 
-        const user = results[0]
+    const user = results[0];
 
-        const isMatched = bcrypt.compareSync(password, user.password);
+    if (!user) {
+      res.json({ error: "Wrong email address!" });
+      return
+    }
 
-        if(!isMatched) {
-            res.json({ error: 'Wrong password!' })
-            return
-        }
+    const isMatched = password
+      ? bcrypt.compareSync(password, user.password)
+      : null;
 
-        const token = getJwtToken(user);
+    if (!isMatched) {
+      res.json({ error: "Wrong password!" });
+      return;
+    }
 
-        res.json({ id: user.id, email: user.email, token, message: 'Logged in successfully.' })
-    })
+    const token = getJwtToken(user);
 
-})
+    res.json({
+      id: user.id,
+      email: user.email,
+      token,
+      message: "Logged in successfully.",
+    });
+  });
+});
 
-router.get('/checkVerify', verifyToken, (req, res) => {
-    
-    db.query('SELECT * FROM user WHERE email = ?', req.user.email, (err, results) => {
-        if(err) {
-            res.json({ err: err.message })
-            return;
-        }
-        res.json({ user: results[0] })
-    })
-})
+router.get("/checkVerify", verifyToken, (req, res) => {
+  db.query(
+    "SELECT * FROM user WHERE email = ?",
+    req.user.email,
+    (err, results) => {
+      if (err) {
+        res.json({ err: err.message });
+        return;
+      }
+      res.json({ user: results[0] });
+    }
+  );
+});
 
 module.exports = router;

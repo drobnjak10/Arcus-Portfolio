@@ -1,43 +1,56 @@
-import { useEffect } from "react";
-import { useContext } from "react";
+import { createContext, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import { userRequest } from "./apiCalls";
-import { UserActions } from "./constants";
-import { authReducer } from "./reducers";
-const { createContext, useReducer } = require("react");
+import { postApiRequest } from "./apiCalls";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
+const cookies = new Cookies();
 
-const initalState = {
-    isAuth: false,
-    user: null
-}
+const checkAuth = () => {
+  const user = cookies.get("access_token");
+
+  if (user) {
+    return true;
+  } else {
+    return null;
+  }
+};
 
 export const AuthProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(authReducer, initalState);
-    const cookies = new Cookies();
+  const [user, setUser] = useState(checkAuth());
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await userRequest('/user/checkVerify')
 
-            if(response.user) {
-                dispatch({ type: UserActions.LOGIN, payload: response })
-            } else {
-                state.isAuth = false
-            }
+  const login = async (user) => {
+    try {
+      const response = await postApiRequest(user, "/user/login");
 
-        }
-        if (!state.user && cookies.get('access_token')) {
-            fetchData();
-        }
-    }, [])
+      if (response.error) {
+        setError(response.error);
+        return;
+      }
 
-    return <AuthContext.Provider value={{ state, dispatch }}>
-        {children}
+      if (response.token) {
+        setUser(true);
+        cookies.set("access_token", response.token);
+      }
+    } catch (error) {
+      setError(true);
+    }
+  };
+
+  const logout = () => {
+    cookies.remove("access_token");
+    setUser(false)
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, error, login, logout }}>
+      {children}
     </AuthContext.Provider>
-}
+  );
+};
 
 export const useAuth = () => {
-    return useContext(AuthContext)
-}
+  return useContext(AuthContext);
+};
