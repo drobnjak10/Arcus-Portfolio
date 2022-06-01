@@ -1,18 +1,18 @@
 import { useState } from "react";
 import {
-    MdAttachMoney,
-    MdBarChart,
-    MdChatBubbleOutline,
-    MdDynamicFeed,
-    MdLogout,
-    MdMailOutline,
-    MdOutlineLineStyle,
-    MdPermIdentity,
-    MdReport,
-    MdStorefront,
-    MdTimeline,
-    MdTrendingUp,
-    MdWorkOutline
+  MdAttachMoney,
+  MdBarChart,
+  MdChatBubbleOutline,
+  MdDynamicFeed,
+  MdLogout,
+  MdMailOutline,
+  MdOutlineLineStyle,
+  MdPermIdentity,
+  MdReport,
+  MdStorefront,
+  MdTimeline,
+  MdTrendingUp,
+  MdWorkOutline,
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
@@ -25,12 +25,11 @@ export default function Sidebar() {
 
   const logoutHandler = async () => {
     logout();
-    navigate('/')
+    navigate("/");
   };
 
   const onClick = (e) => {
     setTab(e.target.tabIndex);
-    console.log(e.target);
   };
 
   return (

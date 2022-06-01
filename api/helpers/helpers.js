@@ -14,8 +14,8 @@ const verifyToken = async (req, res, next) => {
     if (authHeader) {
         const token = authHeader.split(" ")[1]
 
-        await jwt.verify(token, 'jwtsecret', (err, user) => {
-            if (err) res.status(403).json("Token is not valid!")
+        jwt.verify(token, 'jwtsecret', (err, user) => {
+            if (err) res.status(403).json({error: "Token is not valid!"})
             req.user = user
             next()
         })

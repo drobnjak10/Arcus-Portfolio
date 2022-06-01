@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react'
 import Sidebar from '../../Sidebar/Sidebar'
 import Topnav from '../../Topnav/Topnav'

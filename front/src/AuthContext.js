@@ -1,15 +1,13 @@
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { postApiRequest } from "./apiCalls";
 
 const AuthContext = createContext(null);
 const cookies = new Cookies();
+const token = cookies.get('access_token');
 
 const checkAuth = () => {
-  const user = cookies.get("access_token");
-
-  if (user) {
+  if (token) {
     return true;
   } else {
     return null;
@@ -43,6 +41,7 @@ export const AuthProvider = ({ children }) => {
     cookies.remove("access_token");
     setUser(false)
   };
+
 
   return (
     <AuthContext.Provider value={{ user, error, login, logout }}>

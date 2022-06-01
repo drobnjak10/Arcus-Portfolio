@@ -1,18 +1,25 @@
-import React from "react";
-import { MdDelete } from "react-icons/md";
+import { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Sidebar from "../../Sidebar/Sidebar";
 import Topnav from "../../Topnav/Topnav";
-import { Table } from "react-bootstrap";
 import "./productList.scss";
-import { useEffect } from "react";
-import { useState } from "react";
 
 function ProjectsList() {
   const [projects, setProjects] = useState([]);
 
-  const handleDelete = () => {
-    console.log("eee");
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:4000/projects/delete/${id}`, {
+        method: 'DELETE'
+      }) 
+
+      const data = await response.json()
+
+      window.location.reload('/')
+    } catch (error) {
+      
+    }
   };
 
   useEffect(() => {
@@ -84,13 +91,13 @@ function ProjectsList() {
                       <td>{originalDate}</td>
                       <td>
                         <Link
-                          to="/admin/projects/edit"
+                          to={`/admin/projects/edit/${project.id}`}
                           project={project}
                           className="btn productListEdit"
                         >
                           Edit
                         </Link>
-                        <button className="btn productListDelete">
+                        <button className="btn productListDelete" onClick={() => handleDelete(project?.id)}>
                           Delete
                         </button>
                       </td>

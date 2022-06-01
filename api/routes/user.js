@@ -71,6 +71,10 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/checkVerify", verifyToken, (req, res) => {
+  if(!req.user || !req.user.email) {
+    res.json({error: 'You are not authenticated.'});
+    return
+  }
   db.query(
     "SELECT * FROM user WHERE email = ?",
     req.user.email,
