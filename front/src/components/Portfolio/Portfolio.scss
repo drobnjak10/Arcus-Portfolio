@@ -32,6 +32,48 @@
     flex: 30%;
     max-width: 35%;
 
+    &.first {
+      .img {
+        img.img-1 {
+          height: 630px;
+        }
+        img.img-2 {
+          height: 270px;
+        }
+        img.img-3 {
+          height: 400px;
+        }
+      }
+    }
+
+    &.second {
+      .img {
+        img.img-1 {
+          height: 270px;
+        }
+        img.img-2 {
+          height: 570px;
+        }
+        img.img-3 {
+          height: 460px;
+        }
+      }
+    }
+
+    &.third {
+      .img {
+        img.img-1 {
+          height: 450px;
+        }
+        img.img-2 {
+          height: 270px;
+        }
+        img.img-3 {
+          height: 580px;
+        }
+      }
+    }
+
     .img {
       vertical-align: middle;
       width: 100%;
@@ -49,11 +91,6 @@
         left: 0;
         right: 0;
         background-color: transparent;
-      }
-
-      img {
-        margin-top: 0;
-        width: 100%;
       }
 
       &:hover {

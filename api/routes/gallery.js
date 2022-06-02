@@ -46,54 +46,54 @@ router.post("/add", upload.array("files", 12), async (req, res) => {
 
   db.query("SELECT * FROM gallery", (err, results) => {
     if (err) {
-        res.status(200).json({status_code: 0, error: error.message });
-      return;
+      return res.status(500).send({ status_code: 0, error: error.message });
     }
 
-    if (results.length >= 12) {
-        res.status(200).json({
+    if (results.length >= 9) {
+      return res.status(500).send({
         status_code: 0,
         error:
-          "Max photos in gallery is 12. Please delete photo and insert new.",
+          "Max photos in gallery is 9. Please delete photo and insert new.",
       });
       return;
     }
 
-    if (req.files.length > 12) {
-      return  res.status(200).json({
+    if (req.files.length > 9) {
+      return res.status(500).send({
         status_code: 0,
         error:
-          "Max photos in gallery is 12. Please delete photo and insert new.",
+          "Max photos in gallery is 9. Please delete photo and insert new.",
       });
     }
-    if (req.files && req.files.length + results.length > 12) {
-        res.status(200).json({
+    if (req.files && req.files.length + results.length > 9) {
+      return res.status(500).send({
         status_code: 0,
-        error: `Max photos in gallery is 12. Current gallery size is ${
+        error: `Max photos in gallery is 9. Current gallery size is ${
           results.length
-        }. You are avaliable to upload ${12 - results.length} images.`,
+        }. You are avaliable to upload ${9 - results.length} images.`,
       });
-      return;
     }
 
     if (!req.files || !req.files.length) {
-      return  res.status(200).json({ error: "ERROR", status_code: 0 });
+      return res.status(500).send({ error: "ERROR", status_code: 0 });
     }
 
     for (let file of req.files) {
       if (!file) {
-        return  res.status(200).json({ error: "ERROR" });
+        return res.status(500).send({ error: "ERROR" });
       }
       db.query(sql, { image_path: file.filename }, (err, results) => {
         if (err) {
-          res.json({ error: "Insert valid data!",  status_code: 0 });
-          console.log(error)
-          return;
+          return res
+            .status(500)
+            .send({ error: "Insert valid data!", status_code: 0 });
         }
-        res.status(200).json({ message: "Image added successfully", results,  status_code: 1 });
-        return;
       });
     }
+    return res.status(200).send({
+      message: "Images added successfully",
+      status_code: 1,
+    });
   });
 });
 

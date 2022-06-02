@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useEffect, useState } from "react";
 import {
   AiOutlineArrowLeft,
@@ -12,46 +13,53 @@ const Portfolio = () => {
 
   const displayModal = (e) => {
     const src = e.target.nextSibling.getAttribute("src");
-    setCurrentImage(src);
+    setCurrentImage(src.split("/")[2]);
   };
 
-  const changeCurrentImage = (direction) => {
-    let current = images.findIndex((item) => {
-      return item.image_path === currentImage;
-    });
+  const changeCurrentImage = useCallback(
+    (direction) => {
+      let current = images.findIndex((item) => {
+        return item.image_path === currentImage;
+      });
 
-    console.log("current", current, images[current].image_path);
-
-    if (direction === "next") {
-      current += 1;
-      if (current >= images.length) {
-        setCurrentImage(images[0].image_path);
-      } else {
-        setCurrentImage(images[current].image_path);
+      if (direction === "next") {
+        current += 1;
+        if (current >= images.length) {
+          setCurrentImage(images[0].image_path);
+        } else {
+          setCurrentImage(images[current].image_path);
+        }
       }
-    }
 
-    if (direction === "prev") {
-      current -= 1;
-      if (current < 0) {
-        setCurrentImage(images[images.length - 1].image_path);
-      } else {
-        setCurrentImage(images[current].image_path);
+      if (direction === "prev") {
+        current -= 1;
+        if (current < 0) {
+          setCurrentImage(images[images.length - 1].image_path);
+        } else {
+          setCurrentImage(images[current].image_path);
+        }
       }
-    }
-  };
+    },
+    [currentImage, images]
+  );
+
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await fetch("http://localhost:4000/gallery");
+      const data = await response.json();
+      setImages(data.images);
+    } catch (error) {}
+  }, [currentImage]);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch("http://localhost:4000/gallery");
-        const data = await response.json();
-        setImages(data.images);
-      } catch (error) {}
-    }
-
     fetchData();
-  }, []);
+  }, [fetchData]);
+
+  const copyImages = [...images];
+
+  const firstColumn = copyImages.splice(0, 3) || null;
+  const secondColumn = copyImages.splice(0, 3) || null;
+  const thirdColumn = copyImages.splice(0, 3) || null;
 
   return (
     <main className="portfolio section" id="portfolio">
@@ -99,49 +107,52 @@ const Portfolio = () => {
       </div>
 
       <div className="grid-container">
-        <div className="column">
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/project4.jpg" height={630} alt="" />
-          </div>
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/project2.jpg" height={270} alt="" />
-          </div>
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/project3.jpg" alt="" height={400} />
-          </div>
+        <div className="column first">
+          {firstColumn?.length > 0 &&
+            firstColumn.map((image, index) => {
+              return (
+                <div className="img" key={image.id}>
+                  <div className="overlay" onClick={displayModal}></div>
+                  <img
+                    src={`/gallery/${image.image_path}`}
+                    alt=""
+                    className={`img-${index + 1}`}
+                  />
+                </div>
+              );
+            })}
         </div>
 
-        <div className="column">
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/home.jpg" alt="" height={270} />
-          </div>
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/projec54.jpg" alt="" height={570} />
-          </div>
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/sarska.jpg" alt="" height={460} />
-          </div>
+        <div className="column second">
+          {secondColumn?.length > 0 &&
+            secondColumn.map((image, index) => {
+              return (
+                <div className="img" key={image.id}>
+                  <div className="overlay" onClick={displayModal}></div>
+                  <img
+                    src={`/gallery/${image.image_path}`}
+                    alt=""
+                    className={`img-${index + 1}`}
+                  />
+                </div>
+              );
+            })}
         </div>
 
-        <div className="column item-3">
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/project1.jpg" alt="" height={450} />
-          </div>
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/landing.jpg" alt="" height={270} />
-          </div>
-          <div className="img">
-            <div className="overlay" onClick={displayModal}></div>
-            <img src="/images/home.jpg" alt="" height={580} />
-          </div>
+        <div className="column third">
+          {thirdColumn?.length > 0 &&
+            thirdColumn.map((image, index) => {
+              return (
+                <div className="img" key={image.id}>
+                  <div className="overlay" onClick={displayModal}></div>
+                  <img
+                    src={`/gallery/${image.image_path}`}
+                    alt=""
+                    className={`img-${index + 1}`}
+                  />
+                </div>
+              );
+            })}
         </div>
       </div>
     </main>
