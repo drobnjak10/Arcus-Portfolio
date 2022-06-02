@@ -1,4 +1,3 @@
-import Cookies from "universal-cookie";
 import Card from "../../Card/Card";
 import Sidebar from "../../Sidebar/Sidebar";
 import Topnav from "../../Topnav/Topnav";
@@ -12,12 +11,12 @@ export default function Admin() {
       <div className="container-admin">
         <Sidebar />
         <div className="admin">
-          <Card title="Home" link="/" />
-          <Card title="About Us" link="/" />
-          <Card title="Projects" link={"/admin/projects"} />
-          <Card title="Portfolio" link="/" />
-          <Card title="Gallery" link="/" />
-          <Card title="Contact" link="/" />
+          <h3>Dashboard</h3>
+          <div className="cards">
+            <Card title="Projects" link={"/admin/projects"} img={'proj.jpg'} />
+            <Card title="Portfolio" link="/admin/portfolio" img={'portfoliobg.jpg'} />
+            <Card title="Gallery" link="/admin/gallery" img={'gallerybg.png'} />
+          </div>
         </div>
       </div>
     </>

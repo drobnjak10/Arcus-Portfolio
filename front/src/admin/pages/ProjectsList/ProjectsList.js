@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Sidebar from "../../Sidebar/Sidebar";
@@ -10,16 +10,17 @@ function ProjectsList() {
 
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:4000/projects/delete/${id}`, {
-        method: 'DELETE'
-      }) 
+      const response = await fetch(
+        `http://localhost:4000/projects/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-      const data = await response.json()
+      await response.json();
 
-      window.location.reload('/')
-    } catch (error) {
-      
-    }
+      window.location.reload("/");
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -58,52 +59,62 @@ function ProjectsList() {
               </tr>
             </thead>
             <tbody>
-              {projects.length &&
-                projects.map((project) => {
-                  const date = new Date(project.created_at);
-                  const originalDate =
-                    date.getFullYear() +
-                    "-" +
-                    date.getMonth() +
-                    "-" +
-                    date.getDate() +
-                    "/" +
-                    date.getHours() +
-                    ":" +
-                    date.getMinutes() +
-                    ":" +
-                    date.getSeconds();
-
-                  return (
-                    <tr key={project.id}>
-                      <td>{project.id}</td>
-                      <td>{project.title} </td>
-                      <td>{project.category} </td>
-                      <td>{project.short_description}</td>
-                      <td>{project.description.slice(0, 50) + "..."}</td>
-                      <td>
-                        <img
-                          src={`/projects/${project.image_path}`}
-                          width={100}
-                          alt=""
-                        />
-                      </td>
-                      <td>{originalDate}</td>
-                      <td>
-                        <Link
-                          to={`/admin/projects/edit/${project.id}`}
-                          project={project}
-                          className="btn productListEdit"
-                        >
-                          Edit
-                        </Link>
-                        <button className="btn productListDelete" onClick={() => handleDelete(project?.id)}>
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+              <React.Fragment>
+                {projects.length > 0
+                  ? projects.map((project) => {
+                      const date = new Date(project.created_at);
+                      const originalDate =
+                        date.getFullYear() +
+                        "-" +
+                        date.getMonth() +
+                        "-" +
+                        date.getDate() +
+                        "/" +
+                        date.getHours() +
+                        ":" +
+                        date.getMinutes() +
+                        ":" +
+                        date.getSeconds();
+                      return (
+                        <tr key={project.id}>
+                          <td>{project.id}</td>
+                          <td>{project.title} </td>
+                          <td>{project.category} </td>
+                          <td>{project.short_description}</td>
+                          <td>{project.description.slice(0, 50) + "..."}</td>
+                          <td>
+                            <img
+                              style={{
+                                objectFit: "cover",
+                                objectPosition: "center",
+                              }}
+                              src={`/projects/${project.image_path}`}
+                              width={100}
+                              height={100}
+                              alt=""
+                            />
+                          </td>
+                          <td>{originalDate}</td>
+                          <td>
+                            <Link
+                              to={`/admin/projects/edit/${project.id}`}
+                              project={project}
+                              className="btn productListEdit"
+                            >
+                              Edit
+                            </Link>
+                            <button
+                              className="btn productListDelete"
+                              onClick={() => handleDelete(project?.id)}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  : null}
+              </React.Fragment>
             </tbody>
           </Table>
         </div>

@@ -1,21 +1,36 @@
 .card-section {
-    border: 1px solid #666;
-    border-radius: 20px;
-    height: 200px;
-    width: 30%;
-    padding: 20px;
-    transition: .5s ease all;
+  border: 1px solid #666;
+  border-radius: 20px;
+  height: 80%;
+  width: 30%;
+  padding: 20px;
+  transition: 0.5s ease all;
+  cursor: pointer;
+  transition: 0.6s ease all;
+  position: relative;
+  overflow: hidden;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($color: #000000, $alpha: 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.6s ease all;
 
     a {
-        text-decoration: none;
-        color: unset;
-    }
-
-    .icon {
-        margin-bottom: 20px;
+      text-decoration: none;
+      color: unset;
+      transition: 0.4s ease all;
     }
 
     &:hover {
-        background-color: #f1f1f1;
+      transform: scale(1.05);
+      background-color: rgba($color: #000000, $alpha: 0.6);
     }
+  }
 }

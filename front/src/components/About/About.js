@@ -7,18 +7,18 @@ import "./About.scss";
 const About = () => {
   const [page, setPage] = useState(false);
 
-  useEffect(() => {
-    const fetchPages = async () => {
-      const response = await getApiRequest("/pages");
+  // useEffect(() => {
+  //   const fetchPages = async () => {
+  //     const response = await getApiRequest("/pages");
 
-      const aboutUs = response.pages?.filter(
-        (page) => page.title === "O nama"
-      )[0];
+  //     const aboutUs = response.pages?.filter(
+  //       (page) => page.title === "O nama"
+  //     )[0];
 
-      setPage(aboutUs);
-    };
-    fetchPages();
-  }, []);
+  //     setPage(aboutUs);
+  //   };
+  //   fetchPages();
+  // }, []);
 
   return (
     <div className="section about" id="about">

@@ -1,21 +1,23 @@
-import "./App.scss";
-import Home from "./pages/Home/Home";
 import {
   BrowserRouter as Router,
-  Routes,
-  Route,
   Navigate,
+  Route,
+  Routes,
 } from "react-router-dom";
-import Admin from "./admin/pages/Home/Admin";
-import AddProject from "./admin/pages/AddProject/AddProject";
-import ProjectsList from "./admin/pages/ProjectsList/ProjectsList";
 import AddPage from "./admin/pages/AddPages/AddPage";
-import { useAuth } from "./AuthContext";
-import Login from "./pages/Login/Login";
+import AddPhoto from "./admin/pages/AddPhoto/AddPhoto";
+import AddProject from "./admin/pages/AddProject/AddProject";
 import EditProject from "./admin/pages/EditProject/EditProject";
-import Project from "./pages/Projects/Projects";
+import Gallery from "./admin/pages/Gallery/Gallery";
+import Admin from "./admin/pages/Home/Admin";
+import ProjectsList from "./admin/pages/ProjectsList/ProjectsList";
 import Portfolio from "./admin/Portfolio/Portfolio";
+import "./App.scss";
+import { useAuth } from "./AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Project from "./pages/Projects/Projects";
 
 function App() {
   const { user } = useAuth();
@@ -42,6 +44,22 @@ function App() {
           element={
             <ProtectedRoute>
               <ProjectsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/gallery"
+          element={
+            <ProtectedRoute>
+              <Gallery />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/gallery/add"
+          element={
+            <ProtectedRoute>
+              <AddPhoto />
             </ProtectedRoute>
           }
         />

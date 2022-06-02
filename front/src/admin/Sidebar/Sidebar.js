@@ -1,18 +1,9 @@
 import { useState } from "react";
 import {
   MdAttachMoney,
-  MdBarChart,
-  MdChatBubbleOutline,
-  MdDynamicFeed,
   MdLogout,
-  MdMailOutline,
   MdOutlineLineStyle,
-  MdPermIdentity,
-  MdReport,
   MdStorefront,
-  MdTimeline,
-  MdTrendingUp,
-  MdWorkOutline,
 } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
@@ -48,36 +39,18 @@ export default function Sidebar() {
                 Home
               </li>
             </Link>
-            <li
-              className={`sidebarListItem ${tab === 1 && "active"}`}
-              tabIndex={1}
-              onClick={(e) => onClick(e)}
-            >
-              <MdTimeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem" tabIndex={2}>
-              <MdTrendingUp className="sidebarIcon" />
-              Sales
-            </li>
           </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-            <Link to="/users" className="link">
-              <li className="sidebarListItem" tabIndex={3}>
-                <MdPermIdentity className="sidebarIcon" />
-                Users
-              </li>
-            </Link>
             <Link to="/admin/projects" className="link">
               <li
                 className={`sidebarListItem ${tab === 4 && "active"}`}
                 onClick={(e) => onClick(e)}
                 tabIndex={4}
               >
-                <MdStorefront className="sidebarIcon" />
+                <MdStorefront className="sidebarIcon" tabIndex={4} />
                 Projects
               </li>
             </Link>
@@ -91,44 +64,21 @@ export default function Sidebar() {
                 Portfolio
               </li>
             </Link>
-            <li className="sidebarListItem" tabIndex={6}>
-              <MdBarChart className="sidebarIcon" />
-              Reports
-            </li>
-          </ul>
-        </div>
-        <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
-          <ul className="sidebarList">
-            <li className="sidebarListItem" tabIndex={7}>
-              <MdMailOutline className="sidebarIcon" />
-              Mail
-            </li>
-            <li className="sidebarListItem" tabIndex={8}>
-              <MdDynamicFeed className="sidebarIcon" />
-              Feedback
-            </li>
-            <li className="sidebarListItem" tabIndex={9}>
-              <MdChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
+            <Link to="/admin/gallery" className="link">
+              <li
+                className={`sidebarListItem ${tab === 2 && "active"}`}
+                onClick={(e) => onClick(e)}
+                tabIndex={2}
+              >
+                <MdAttachMoney className="sidebarIcon" />
+                Gallery
+              </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Staff</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem" tabIndex={10}>
-              <MdWorkOutline className="sidebarIcon" />
-              Manage
-            </li>
-            <li className="sidebarListItem" tabIndex={11}>
-              <MdTimeline className="sidebarIcon" />
-              Analytics
-            </li>
-            <li className="sidebarListItem" tabIndex={12}>
-              <MdReport className="sidebarIcon" />
-              Reports
-            </li>
             <li
               className="sidebarListItem"
               onClick={logoutHandler}

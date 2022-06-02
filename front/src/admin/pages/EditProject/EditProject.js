@@ -45,10 +45,12 @@ const EditProject = () => {
         formData.append("files", image);
       }
     } else {
+      console.log("nema");
       formData.append("files", project.image_path);
     }
 
-    const response = await editProject(formData);
+    await editProject(formData);
+    console.log('data',  await editProject(formData))
   };
 
   useEffect(() => {
@@ -62,6 +64,9 @@ const EditProject = () => {
     }
     fetchProject();
   }, []);
+
+  const images = project?.image_path?.split('#');
+
 
   return (
     <>
@@ -77,14 +82,20 @@ const EditProject = () => {
                 type="file"
                 id="file"
                 onChange={(e) => setFile(e.target.files)}
+                multiple
               />
+              <div style={{ display: 'flex', gap: '20px' }}>
+              { images && images.length && images.map(image => {
+                  return <img src={`/projects/${image}`} width={100} alt="" key={image} />
+              }) }
+              </div>
             </div>
             <div className="addProductItem">
               <label>Title</label>
               <input
                 name="title"
                 type="text"
-                placeholder="Project Title"
+                placeholder={project?.title}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -93,7 +104,7 @@ const EditProject = () => {
               <input
                 name="category"
                 type="text"
-                placeholder="Project Category"
+                placeholder={project?.category}
                 onChange={(e) => setCategory(e.target.value)}
               />
             </div>
@@ -102,7 +113,7 @@ const EditProject = () => {
               <input
                 name="short_description"
                 type="text"
-                placeholder="short description..."
+                placeholder={project?.short_description}
                 onChange={(e) => setShortDescription(e.target.value)}
               />
             </div>
@@ -114,7 +125,8 @@ const EditProject = () => {
                 cols="30"
                 rows="10"
                 onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+              >
+              </textarea>
             </div>
 
             <button className="addProductButton" onClick={handleClick}>

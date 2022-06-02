@@ -15,7 +15,7 @@ export default function Topnav() {
         </div>
         <div className="topRight">
           <Link to="/admin/projects/add">
-            <button className="productAddButton" style={{ width: '150px', marginRight: '20px', padding: '10px' }}>Add Product</button>
+            <button className="productAddButton" style={{ width: '150px', marginRight: '20px', padding: '10px' }}>Add Project</button>
           </Link>
           <div className="topbarIconContainer">
             <IoMdNotificationsOff />

@@ -68,12 +68,35 @@ router.put("/edit/:id", upload.array("files", 3), (req, res) => {
       res.json({ message: "Project updated!", results });
     });
   } else {
+    db.query(
+      "SELECT * FROM projects WHERE id = ?",
+      req.params.id,
+      (err, results) => {
+        if (err) throw err;
+        const image_path = results[0]?.image_path;
+
+        if (image_path) {
+          const images = image_path.split("#");
+
+          for (let image of images) {
+            let pathFolder = path.join(
+              __dirname,
+              `../../front/public/projects/${image}`
+            );
+            fs.unlink(pathFolder, (err) => {
+              if (err) res.json({ error: `Could not found image ${image}` });
+            });
+          }
+        }
+      }
+    );
+
     const fileNames = [];
-    
+
     for (let file of req.files) {
-        fileNames.push(file.filename);
+      fileNames.push(file.filename);
     }
-    
+
     const obj = {
       title,
       description,
@@ -91,6 +114,33 @@ router.put("/edit/:id", upload.array("files", 3), (req, res) => {
 
 router.delete("/delete/:id", (req, res) => {
   let sql = "DELETE FROM projects WHERE id = ?";
+
+  db.query(
+    "SELECT * FROM projects WHERE id = ?",
+    req.params.id,
+    (err, results) => {
+      if (err) throw err;
+      const image_path = results[0]?.image_path;
+      console.log(image_path)
+
+      if (image_path) {
+        const images = image_path.split("#");
+
+        for (let image of images) {
+          let pathFolder = path.join(
+            __dirname,
+            `../../front/public/projects/${image}`
+          );
+          fs.unlink(pathFolder, (err) => {
+            if (err) {
+              res.json({ error: `Could not found image ${image}` });
+              return;
+            }
+          });
+        }
+      }
+    }
+  );
 
   db.query(sql, req.params.id, (err, results) => {
     if (err) throw err;
