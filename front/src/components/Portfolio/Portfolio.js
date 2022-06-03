@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import { useEffect, useState } from "react";
 import {
   AiOutlineArrowLeft,
@@ -6,6 +6,23 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 import "./Portfolio.scss";
+
+// event listener for gallery 
+const useEventListener = (eventName, handler, element = window) => {
+  const savedHandler = useRef();
+
+  useEffect(() => {
+    savedHandler.current = handler;
+  }, [handler]);
+
+  useEffect(() => {
+    const eventListener = (event) => savedHandler.current(event);
+    element.addEventListener(eventName, eventListener);
+    return () => {
+      element.removeEventListener(eventName, eventListener);
+    };
+  }, [eventName, element]);
+};
 
 const Portfolio = () => {
   const [currentImage, setCurrentImage] = useState("");
@@ -16,33 +33,51 @@ const Portfolio = () => {
     setCurrentImage(src.split("/")[2]);
   };
 
+  const allImages = useMemo(() => {
+    return images?.map((image) => image);
+  }, [images]);
+
   const changeCurrentImage = useCallback(
     (direction) => {
-      let current = images.findIndex((item) => {
+      let current = allImages.findIndex((item) => {
         return item.image_path === currentImage;
       });
 
       if (direction === "next") {
-        current += 1;
-        if (current >= images.length) {
-          setCurrentImage(images[0].image_path);
+        current++;
+        if (current >= allImages.length) {
+          setCurrentImage(allImages[0]?.image_path);
         } else {
-          setCurrentImage(images[current].image_path);
+          setCurrentImage(allImages[current]?.image_path);
         }
       }
 
       if (direction === "prev") {
-        current -= 1;
+        current--;
         if (current < 0) {
-          setCurrentImage(images[images.length - 1].image_path);
+          setCurrentImage(allImages[allImages.length - 1]?.image_path);
         } else {
-          setCurrentImage(images[current].image_path);
+          setCurrentImage(allImages[current]?.image_path);
         }
       }
     },
-    [currentImage, images]
+    [currentImage]
   );
 
+  const handler = useCallback(({ key }) => {
+    if(!currentImage) {
+      return;
+    }
+    if (key === "ArrowRight") {
+      changeCurrentImage("next");
+    }
+
+    if (key === "ArrowLeft") {
+      changeCurrentImage("prev");
+    }
+  }, [currentImage]);
+
+  
   const fetchData = useCallback(async () => {
     try {
       const response = await fetch("http://localhost:4000/gallery");
@@ -53,7 +88,10 @@ const Portfolio = () => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
+  
+  useEventListener("keydown", handler);
+  
 
   const copyImages = [...images];
 
@@ -139,7 +177,7 @@ const Portfolio = () => {
             })}
         </div>
 
-        <div className="column third">
+        <div className="column third item-3">
           {thirdColumn?.length > 0 &&
             thirdColumn.map((image, index) => {
               return (

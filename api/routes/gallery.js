@@ -49,7 +49,7 @@ router.post("/add", upload.array("files", 12), async (req, res) => {
       return res.status(500).send({ status_code: 0, error: error.message });
     }
 
-    if (results.length >= 9) {
+    if (results.length > 9) {
       return res.status(500).send({
         status_code: 0,
         error:

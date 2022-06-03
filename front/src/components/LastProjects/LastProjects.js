@@ -37,6 +37,7 @@ const LastProjects = () => {
                   style={{ textDecoration: "none", color: "#000" }}
                 >
                   <div className="card-img">
+                    <div className="overlay"></div>
                     <img src={`/projects/${project.image_path}`} alt="" />
                     <span>{project.category}</span>
                   </div>

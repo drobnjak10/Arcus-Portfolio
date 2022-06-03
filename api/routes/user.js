@@ -4,7 +4,6 @@ const db = require("../database.js");
 const bcrypt = require("bcryptjs");
 const {
   getJwtToken,
-  verifyTokenAndAuthorization,
   verifyToken,
 } = require("../helpers/helpers.js");
 
@@ -47,7 +46,7 @@ router.post("/login", async (req, res) => {
 
     if (!user) {
       res.json({ error: "Wrong email address!" });
-      return
+      return;
     }
 
     const isMatched = password
@@ -71,9 +70,9 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/checkVerify", verifyToken, (req, res) => {
-  if(!req.user || !req.user.email) {
-    res.json({error: 'You are not authenticated.'});
-    return
+  if (!req.user || !req.user.email) {
+    res.json({ error: "You are not authenticated." });
+    return;
   }
   db.query(
     "SELECT * FROM user WHERE email = ?",

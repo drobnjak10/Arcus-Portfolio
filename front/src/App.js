@@ -17,7 +17,7 @@ import { useAuth } from "./AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
-import Project from "./pages/Projects/Projects";
+import Project from "./pages/Project/Project";
 
 function App() {
   const { user } = useAuth();

@@ -2,6 +2,7 @@
   margin-top: 180px;
   height: auto;
   margin-left: auto;
+  overflow: visible;
 
   .title {
     h1 {
@@ -86,8 +87,8 @@
       .overlay {
         transition: 0.4s ease all;
         position: absolute;
-        top: 0px;
-        bottom: 4px;
+        top: 8px;
+        bottom: 1px;
         left: 0;
         right: 0;
         background-color: transparent;
@@ -97,24 +98,6 @@
         .overlay {
           background-color: rgba($color: #000000, $alpha: 0.7);
         }
-      }
-    }
-  }
-
-  @media (max-width: 1200px) {
-    width: 100%;
-    margin-left: 0;
-    margin: 150px 0;
-
-    .column {
-      flex: 40%;
-      flex-wrap: wrap;
-      max-width: 50%;
-      margin: 0 auto;
-
-      &.item-3 {
-        background-color: red;
-        display: none;
       }
     }
   }

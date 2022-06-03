@@ -36,6 +36,7 @@ const Projects = () => {
                     to={`/project/${project.id}`}
                     style={{ textDecoration: "none", color: "#000" }}
                   >
+                    <div className="overlay"></div>
                     <img src={`/projects/${project.image_path}`} alt="" />
                     <div className="img-text">
                       <span className="category">{project.category}</span>
@@ -56,6 +57,7 @@ const Projects = () => {
                     to={`/project/${project.id}`}
                     style={{ textDecoration: "none", color: "#000" }}
                   >
+                    <div className="overlay"></div>
                     <img
                       src={`/projects/${project?.image_path}`}
                       alt={project?.title}

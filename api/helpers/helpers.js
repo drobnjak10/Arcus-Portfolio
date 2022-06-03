@@ -2,6 +2,7 @@ const db = require('../database')
 const jwt = require('jsonwebtoken')
 
 const getJwtToken = (user) => {
+    process.env.JWT_SECRET
     const token = jwt.sign({ _id: user._id, email: user.email }, 'jwtsecret', { expiresIn: '1d' });
 
     return token;
