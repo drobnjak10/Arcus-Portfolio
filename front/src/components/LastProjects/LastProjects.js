@@ -30,6 +30,8 @@ const LastProjects = () => {
       <div className="col-flex">
         {lastestProjects.length &&
           lastestProjects?.map((project) => {
+            const date = new Date(project.created_at);
+            const originalDate = date.toLocaleDateString('default', { month: 'long' }) + ' ' + date.getDate() + ', ' + date.getFullYear()
             return (
               <div className="card" key={project.id}>
                 <Link
@@ -45,7 +47,7 @@ const LastProjects = () => {
                     <h3 className="title">{project.title}</h3>
                     <div className="project-info">
                       <span className="category">{project.category}</span>
-                      <span className="date">October 18, 2021 22</span>
+                      <span className="date">{originalDate}</span>
                     </div>
                   </div>
                 </Link>
