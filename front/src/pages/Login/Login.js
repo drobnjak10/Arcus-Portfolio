@@ -10,9 +10,6 @@ function Login() {
 
   const handleClick = async () => {
     login({ email, password });
-    if (error) {
-      console.log("err", error);
-    }
   };
 
   return (
